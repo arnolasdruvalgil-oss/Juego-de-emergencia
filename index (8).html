@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mini-juego educativo: arma tu mochila de emergencia ante la alerta naranja del Volcán Puracé.">
+  <title>Mochila al Hombro | Puracé</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+
+    <!-- ================= PANTALLA DE INICIO ================= -->
+    <section id="screen-start" class="screen active">
+      <div class="card">
+        <p class="badge">⚠️ ALERTA NARANJA</p>
+        <h1>🎒 Mochila al Hombro</h1>
+        <h2 class="subtitle">¡Corre contra el reloj en Puracé!</h2>
+        <p class="intro">
+          ¡Alerta Naranja en el Volcán Puracé! Tienes <strong>60 segundos</strong> para armar tu kit de
+          evacuación antes de que sea tarde. ¡Elige con sabiduría!
+        </p>
+        <ul class="rules">
+          <li>👆 Toca los objetos que <strong>sí</strong> van en la mochila de emergencia.</li>
+          <li>❌ Evita los distractores: cada error te quita <strong>5 segundos</strong>.</li>
+          <li>🏋️ Con <strong>3 errores</strong> tu mochila queda demasiado pesada.</li>
+          <li>🏆 Reúne los <strong>7 objetos vitales</strong> antes de que acabe el tiempo.</li>
+        </ul>
+        <div class="btn-row">
+          <button id="btn-start" class="btn btn-primary" type="button">Iniciar Misión</button>
+          <button id="btn-learn-start" class="btn btn-ghost" type="button">Saber más</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PANTALLA DE JUEGO ================= -->
+    <section id="screen-game" class="screen">
+      <header class="hud">
+        <div class="hud-item" id="time-box">
+          <span class="label">⏱️ Tiempo</span>
+          <span id="time-text" class="value">60</span>
+          <span id="penalty-float" class="penalty-float">-5 s</span>
+        </div>
+        <div class="hud-item">
+          <span class="label">🎯 Objetivos</span>
+          <span id="goal-text" class="value">0/7</span>
+        </div>
+        <div class="hud-item">
+          <span class="label">❌ Errores</span>
+          <span id="errors-text" class="value">0/3</span>
+        </div>
+        <button id="btn-mute" class="icon-btn" type="button" aria-label="Activar o silenciar sonido">🔊</button>
+      </header>
+
+      <div class="timer-bar" aria-hidden="true">
+        <div id="timer-fill" class="timer-fill"></div>
+      </div>
+
+      <div class="game-layout">
+        <!-- Habitación donde aparecen los objetos -->
+        <div id="room" class="room" aria-label="Habitación de la casa">
+          <div class="window"><span>🌋</span></div>
+          <div class="shelf shelf-1"></div>
+          <div class="shelf shelf-2"></div>
+          <div class="shelf shelf-3"></div>
+          <div class="shelf shelf-4"></div>
+          <div id="toast" class="toast" role="status" aria-live="polite"></div>
+        </div>
+
+        <!-- Mochila -->
+        <aside class="pack">
+          <div class="pack-main">
+            <div id="backpack" class="backpack">🎒</div>
+            <div class="pack-info">
+              <p class="pack-title">Tu mochila</p>
+              <div class="weight"><div id="pack-fill" class="weight-fill"></div></div>
+            </div>
+          </div>
+          <div id="slots" class="slots" aria-label="Objetos en la mochila"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= PANTALLA DE RESULTADO ================= -->
+    <section id="screen-result" class="screen">
+      <div class="card">
+        <div id="result-icon" class="result-icon">🏆</div>
+        <h2 id="result-title" class="result-title"></h2>
+        <p id="result-reason" class="reason"></p>
+        <p id="result-msg" class="msg"></p>
+        <div id="result-stats" class="stats"></div>
+
+        <h3 class="review-title">Repaso de tu kit de emergencia</h3>
+        <ul id="result-review" class="review"></ul>
+
+        <div class="btn-row">
+          <button id="btn-retry" class="btn btn-primary" type="button">Jugar de nuevo</button>
+          <button id="btn-learn-result" class="btn btn-ghost" type="button">Saber más</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PANTALLA: APRENDE CON LA GUÍA OFICIAL ================= -->
+    <section id="screen-learn" class="screen">
+      <div class="card">
+        <p class="badge badge-info">📚 Aprende con la guía oficial</p>
+        <h2 class="result-title">¿Qué hacer ante la actividad del Volcán Puracé?</h2>
+        <p class="intro">
+          El Puracé hace parte de la cadena volcánica Los Coconucos, en el Cauca, cerca de Popayán.
+          Estas son las ideas clave de las recomendaciones del Servicio Geológico Colombiano (SGC) y la
+          Unidad Nacional para la Gestión del Riesgo de Desastres (UNGRD):
+        </p>
+        <ul class="learn-list">
+          <li>
+            <span class="learn-icon">🟠</span>
+            <div>
+              <strong>Qué significa la alerta naranja</strong>
+              <p>El volcán presenta cambios importantes en lo que se monitorea (sismos, gases y ceniza). No es una erupción, pero exige estar preparados.</p>
+            </div>
+          </li>
+          <li>
+            <span class="learn-icon">🚫</span>
+            <div>
+              <strong>No te acerques al cráter ni a la parte alta</strong>
+              <p>Pueden ocurrir emisiones súbitas de gases y ceniza. Si las autoridades ordenan una evacuación preventiva, hazla sin esperar.</p>
+            </div>
+          </li>
+          <li>
+            <span class="learn-icon">😷</span>
+            <div>
+              <strong>Protégete de la ceniza</strong>
+              <p>Usa tapabocas, evita actividades prolongadas al aire libre, cubre los alimentos y protege los depósitos y fuentes de agua.</p>
+            </div>
+          </li>
+          <li>
+            <span class="learn-icon">📻</span>
+            <div>
+              <strong>Infórmate solo por canales oficiales</strong>
+              <p>Sigue al SGC (@sgcol), a la UNGRD, a la Gobernación del Cauca y a las autoridades locales. No compartas rumores.</p>
+            </div>
+          </li>
+        </ul>
+        <p class="note">
+          Este juego es educativo. Para conocer el estado actual del volcán y qué hacer en una emergencia real,
+          consulta siempre los canales oficiales.
+        </p>
+        <div class="btn-row">
+          <button id="btn-learn-back" class="btn btn-primary" type="button">← Volver</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
